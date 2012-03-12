@@ -183,6 +183,14 @@ A{
   text-decoration: none;
 }                
 
+.header-form span {
+  background-color: inherit;
+  color: #000000;
+  font-family: Verdana,Arial,Helvetica,sans-serif;
+  font-size: 10px;
+  font-weight: bold;
+  text-decoration: none;
+}
 </style>
 
 </head>
@@ -212,6 +220,7 @@ A{
       </div>                                                                    
       <div class="header-form">                                                 
         <form id="search_form" method="post" action="index.php">                
+          <span>Search:</span>&nbsp;&nbsp;
           <input type="text" size="12" name="search_string" />                  
         </form>                                                                 
       </div>                                                                    
