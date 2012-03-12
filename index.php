@@ -175,16 +175,17 @@ A{
                                                                                 
 .header-a span {                                                                
   float: right;                                                                 
+  background-color: inherit;
+  color: #000000;
+  font-family: Verdana,Arial,Helvetica,sans-serif;
+  font-size: 10px;
+  font-weight: bold;
+  text-decoration: none;
 }                
-
-
-
-
 
 </style>
 
 </head>
-
 
 
 <body>
