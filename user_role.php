@@ -44,7 +44,7 @@ if ($n > 0) {
 
 <head>
 
-<title>Add document</title>
+<title>Assign user role</title>
 
 <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
 
@@ -279,76 +279,53 @@ A{
     <td valign="top" class="bg4" colspan="2"><!--img src="images/company_text.gif" border=0 alt=""><br-->
       <div>
           
-          <form action="upload.php" method="post" enctype="multipart/form-data" >
+          <form action="assign_role.php" method="post" enctype="multipart/form-data" >
 
           <table>
           <tr>
           <td>
-            <label for="Title">Title:</label>
+            <label for="Title">Select username:</label>
           </td>
           <td>
-            <input type="text" name="title" id="Title" /> 
+            <select name="user_id"> 
+            <?php
+              $query = "SELECT user_id,username FROM user_account;";      
+              $results = mysql_query($query,$dst_db);                                 
+              $r = mysql_fetch_row($results);
+              $n = mysql_num_rows($results);
+
+              if($n > 0) { ?>
+                <option value=""></option> 
+              <?php for($i = 0; $i < $n; $i++) {
+             ?>
+                <option value="<?php echo $r[0]; ?>"><?php echo $r[1]; ?></option> 
+              <?php 
+                }
+              }
+             ?>
           </td>
         </tr>
-        <tr>
-          <td>
-            <label for="Ministry">Ministry:</label>
-          </td>
-          <td>
-            <input type="text" name="ministry" id="Ministry" />
-          </td>
-        </tr>
-        <tr>
-          <td>
-            <label for="Version">Version:</label>
-          </td>
-          <td>
-            <select name="version" id="Version">
-          </td>
-         </tr>
          <tr>
           <td>
-            <label for="Browser">Browser document:</label>
+            <label for="Title">Select user role:</label>
           </td>
           <td>
-            <input type="file" name="uploadedfile" id="file" /> 
-          </td>
-         </tr>
-        <tr>
-          <td>
-            <label for="amount">Amount:</label>
-          </td>
-          <td>
-            <input type="text" name="amount" id="amount" />
-          </td>
-         </tr>
-        <tr>
-          <td>
-            <label for="Version">Qualification:</label>
-          </td>
-          <td>
-            <select name="qualification" id="qualification">
-          </td>
-         </tr>
-        <tr>
-          <td>
-            <label for="validity">Validity:</label>
-          </td>
-          <td>
-            <input type="text" name="validity" id="validity" />
-          </td>
-         </tr>
-        <tr>
-          <td style="vertical-align:text-top;">
-            <label for="keywords">Keywords:</label>
-          </td>
-          <td>
-            <textarea name="keywords" id="Keywords" rows="5" cols="45"></textarea>
+            <select name="select_user_role">
+              <option value=""></option> 
+              <option value="guest">Guest</option> 
+              <option value="admin">Administrator</option> 
+              <option value="staff">Satff</option> 
+            </select>
           </td>
          </tr>
          <tr>
           <td colspan="2">
-            <input type="submit" name="Submit" id="Submit" value="Submit" />
+            &nbsp;
+          </td>
+         </tr>
+         <tr>
+          <td colspan="2">
+            <input type="submit" name="Submit" id="Submit" value="Assign" />
           </td>
          </tr>
         </table>

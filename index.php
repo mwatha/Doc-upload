@@ -16,8 +16,8 @@ $dst_db = mysql_pconnect("localhost","root","letusout");
 mysql_select_db("dst", $dst_db);                                                
                                                                                 
 
-if($_SESSION['user_id'] == null) {
-  $user_id = 0;
+if($_SESSION['user_id'] == null) { ?>
+  <script>redirectLogin();</script><?php
 }else{
   $user_id = $_SESSION['user_id'];                                                
 }
@@ -237,10 +237,11 @@ A{
       <div class="header-a">                                                    
         <a href="index.php">Home</a>|&nbsp;&nbsp;                               
         <a href="document.php">Add document</a>|&nbsp;&nbsp;                    
-        <a href="scholarships">Scholarships</a>|&nbsp;&nbsp;                    
-        <a href="application">Grant application</a>|&nbsp;&nbsp;                
-        <a href="reports">Report</a>|&nbsp;&nbsp;                               
-        <a href="settings">Settings</a>|&nbsp;&nbsp;                            
+        <a href="#">Scholarships</a>|&nbsp;&nbsp;                    
+        <a href="#">Grant application</a>|&nbsp;&nbsp;                
+        <a href="#">Report</a>|&nbsp;&nbsp;                               
+        <a href="#">Settings</a>|&nbsp;&nbsp;                            
+        <a href="user_role.php">Assign user roles</a>|&nbsp;&nbsp;                            
         <span><a href="signout.php">Sign out</a></span>&nbsp;&nbsp;
         <span style="margin-right:40px;">Login as:
           <font style="color:orangeRed;">&nbsp;<?php echo $_SESSION['username'] ?></font>

@@ -139,6 +139,15 @@ A{
   float: left;
 }
 
+.header-a a {
+  background-color: inherit;                                                    
+  color: #000000;                                                               
+  font-family: Verdana,Arial,Helvetica,sans-serif;                              
+  font-size: 10px;                                                              
+  font-weight: bold;                                                            
+  text-decoration: none;
+}
+
 </style>
 
 </head>
@@ -154,20 +163,24 @@ A{
 <table cellpadding=0 cellspacing=0 border=0 width="100%">
 
   <tr>
-    <div class="header">
-      <div class="header-a">
-        <a href="index.php">Home</a>&nbsp;&nbsp;
-        <a href="document.php">Add document</a>&nbsp;&nbsp;
-        <a href="">ADD USER</a>&nbsp;&nbsp;
-        <a href="">EDIT USER ROLES</a>&nbsp;&nbsp;
-        <a href="">ABOUT SITE</a>&nbsp;&nbsp;
-        <a href="">CONTACT US</a>
-      </div>
-      <!--div class="header-form">
-        <form id="search_form">
-          <input type="text" size="12" />
-        </form>
-      </div-->
+    <div class="header">                                                        
+      <div class="header-a">                                                    
+        <a href="index.php">Home</a>|&nbsp;&nbsp;                               
+        <a href="document.php">Add document</a>|&nbsp;&nbsp;                    
+        <a href="#">Scholarships</a>|&nbsp;&nbsp;                    
+        <a href="#">Grant application</a>|&nbsp;&nbsp;                
+        <a href="#">Report</a>|&nbsp;&nbsp;                               
+        <!--span><a href="signout.php">Sign out</a></span>&nbsp;&nbsp;             
+        <span style="margin-right:40px;">Login as:                              
+          <font style="color:orangeRed;">&nbsp;</font>
+        </span-->                                                                 
+      </div>                                                                    
+      <div class="header-form">                                                 
+        <!--form id="search_form" method="post" action="index.php">                
+          <span>Search:</span>&nbsp;&nbsp;                                      
+          <input type="text" size="12" name="search_string" />                  
+        </form-->                                                                 
+      </div>                                                                    
     </div>
     <!-- td valign=top><a href=""><img src="images/menu1.gif" border=0 alt=""></a></td>
 
