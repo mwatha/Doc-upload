@@ -156,8 +156,8 @@ A{
   <tr>
     <div class="header">
       <div class="header-a">
-        <a href="">HOME</a>&nbsp;&nbsp;
-        <a href="">ADD DOCUMENT</a>&nbsp;&nbsp;
+        <a href="index.php">Home</a>&nbsp;&nbsp;
+        <a href="document.php">Add document</a>&nbsp;&nbsp;
         <a href="">ADD USER</a>&nbsp;&nbsp;
         <a href="">EDIT USER ROLES</a>&nbsp;&nbsp;
         <a href="">ABOUT SITE</a>&nbsp;&nbsp;

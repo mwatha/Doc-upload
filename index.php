@@ -1,21 +1,49 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
-<?php session_start(); 
-if ($_SESSION['username'] == "") { ?>
-<script>
-window.location.href="login.php";
+<script>                                                                        
+  function redirectLogin() {                                                    
+    document.location = "login.php";                                            
+  }                                                                             
+                                                                                
+  function redirectHome() {                                                     
+    document.location = "index.php";                                            
+  }                                                                             
 </script>
-<?php 
-} 
+<?php   
 
+session_start();                                                                
+                                                                                
 $dst_db = mysql_pconnect("localhost","root","letusout");                        
-mysql_select_db("dst", $dst_db);
+mysql_select_db("dst", $dst_db);                                                
+                                                                                
 
-$dst_db = mysql_pconnect("localhost","root","letusout");                        
-mysql_select_db("dst", $dst_db);
+if($_SESSION['user_id'] == null) {
+  $user_id = 0;
+}else{
+  $user_id = $_SESSION['user_id'];                                                
+}
 
-$user_id_query = "SELECT user_id FROM user ORDER BY user_id DESC LIMIT 1";      
-$results = mysql_query($user_id_query,$dst_db);                                 
-$r = mysql_fetch_row($results);
+$user_role = "SELECT role FROM user_role WHERE user_id = $user_id LIMIT 1";     
+$results = mysql_query($user_role,$dst_db);                                     
+$r = mysql_fetch_row($results);                                                 
+$n = mysql_num_rows($results);                                                  
+                                                                                
+if ($n > 0) {                                                                   
+  if ($r[0] !="admin") { 
+  }                                                                             
+}else{ ?>                                                                       
+  <script>                                                                      
+    document.write('Your not logged in!');                                      
+    setTimeout("redirectLogin();", 4000);                                       
+  </script><?php                                                                
+  exit;                                                                         
+}                                                                               
+                                                                                
+
+
+
+#$user_id_query = "SELECT user_id FROM user ORDER BY user_id DESC LIMIT 1";      
+#$results = mysql_query($user_id_query,$dst_db);                                 
+#$r = mysql_fetch_row($results);
 
 
 $search_string = $_POST['search_string'];
