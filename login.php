@@ -165,8 +165,8 @@ A{
   <tr>
     <div class="header">                                                        
       <div class="header-a">                                                    
-        <a href="index.php">Home</a>|&nbsp;&nbsp;                               
-        <a href="document.php">Add document</a>|&nbsp;&nbsp;                    
+        <a href="#">Home</a>|&nbsp;&nbsp;                               
+        <a href="#">Add document</a>|&nbsp;&nbsp;                    
         <a href="#">Scholarships</a>|&nbsp;&nbsp;                    
         <a href="#">Grant application</a>|&nbsp;&nbsp;                
         <a href="#">Report</a>|&nbsp;&nbsp;                               
