@@ -291,12 +291,12 @@ A{
             <?php
               $query = "SELECT user_id,username FROM user_account;";      
               $results = mysql_query($query,$dst_db);                                 
-              $r = mysql_fetch_row($results);
               $n = mysql_num_rows($results);
 
               if($n > 0) { ?>
                 <option value=""></option> 
               <?php for($i = 0; $i < $n; $i++) {
+                $r = mysql_fetch_row($results);
              ?>
                 <option value="<?php echo $r[0]; ?>"><?php echo $r[1]; ?></option> 
               <?php 
