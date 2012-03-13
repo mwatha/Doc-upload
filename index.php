@@ -1,3 +1,6 @@
+<?php session_start();                                                                
+header('Content-type', 'application/x-force-download');                                        
+?>
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
 <script>                                                                        
   function redirectLogin() {                                                    
@@ -10,7 +13,6 @@
 </script>
 <?php   
 
-session_start();                                                                
                                                                                 
 $dst_db = mysql_pconnect("localhost","root","letusout");                        
 mysql_select_db("dst", $dst_db);                                                
@@ -318,7 +320,6 @@ A{
         $n = mysql_num_rows($results);                                         
                           
         if($n > 0) {                   
-          header('Content-type', 'application/x-force-download');                                        
           for ($i = 1;$i <= $n;$i++) {                                         
             $r = mysql_fetch_row($results);                                        
             $query = "SELECT * FROM user WHERE user_id = $r[9];";                                     

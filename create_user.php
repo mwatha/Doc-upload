@@ -1,4 +1,4 @@
-<?php
+<?php session_start();
 
 $dst_db = mysql_pconnect("localhost","root","letusout");                        
 mysql_select_db("dst", $dst_db);      
@@ -30,7 +30,6 @@ mysql_query($account_query,$dst_db);
 $user_query = "INSERT INTO user_role VALUES($r[0],'guest')";                                     
 mysql_query($user_query,$dst_db); 
 
-session_start();
 
 $_SESSION['username'] = $username;                                            
 $_SESSION['user_id'] = $r[0]; 

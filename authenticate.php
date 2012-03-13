@@ -1,5 +1,4 @@
-<?php        
-session_start(); 
+<?php session_start(); 
 
 $dst_db = mysql_pconnect("localhost","root","letusout");                        
 mysql_select_db("dst", $dst_db);      

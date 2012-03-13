@@ -1,9 +1,10 @@
+<?php session_start(); ?>
+
 <script>
   setTimeout("redirect();",6000);
 </script>
 
 <?php 
-session_start();
 
 $dst_db = mysql_pconnect("localhost","root","letusout");                        
 mysql_select_db("dst", $dst_db);
