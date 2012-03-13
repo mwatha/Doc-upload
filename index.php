@@ -122,10 +122,10 @@ A{
 
 }
 
-.bg2{
-
-  /*background-image:url(images/top_right.gif);*/
-
+.main-imagine{
+  background-repeat: no-repeat;
+  height: 150px;
+  width: 99%;
 }
 
 .bg3{
@@ -278,7 +278,7 @@ A{
 
     <td valign=top colspan=8><img src="images/malawi.jpg" border=0 alt=""></td>
 
-    <td width="100%" class="bg2"></td>
+    <td width="100%" class="bg2"><img src="images/lilongwe.png" class="main-imagine"/></td>
 
   </tr>
 
