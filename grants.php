@@ -241,7 +241,7 @@ A{
         <a href="document.php">Add document</a>|&nbsp;&nbsp;                    
         <a href="scholarships.php">Scholarships</a>|&nbsp;&nbsp;                    
         <a href="grants.php">Grant application</a>|&nbsp;&nbsp;                
-        <a href="policies.php">Policies</a>|&nbsp;&nbsp;                
+        <a href="policies.php">Policies</a>|&nbsp;&nbsp;
         <a href="#">Report</a>|&nbsp;&nbsp;                               
         <a href="#">Settings</a>|&nbsp;&nbsp;                            
         <a href="user_role.php">Assign user roles</a>|&nbsp;&nbsp;                            
@@ -301,7 +301,7 @@ A{
     </td>
     <td valign="top" class="bg4" colspan="2"><!--img src="images/company_text.gif" border=0 alt=""><br-->
       <div>
-        <h1>Uploaded files</h1><br />
+        <h1>Uploaded grant files</h1><br />
         <table class='uploads'>
           <tr>
             <th>Title</th>
@@ -310,14 +310,14 @@ A{
           </tr>
         <?php
         if(strlen($search_string) > 0) {
-          $query = "SELECT title,validity,url FROM documents_uploaded d 
-            INNER JOIN  user ON user_id = uploader 
-            WHERE keywords LIKE '%$search_string%' 
-            OR title LIKE '%$search_string%' 
-            OR ministry LIKE '%$search_string%'LIMIT 50;";                                     
+          $query = "SELECT * FROM documents_uploaded WHERE keywords LIKE '%$search_string%' OR title LIKE '%$search_string%' OR ministry LIKE '%$search_string%' LIMIT 50;";                                     
         }else{
+          $query = "SELECT document_type_id FROM document_type WHERE name = 'Grant';";                                     
+          $results = mysql_query($query,$dst_db);                               
+          $r = mysql_fetch_row($results);                                        
           $query = "SELECT title,validity,url FROM documents_uploaded d 
-            INNER JOIN  user ON user_id = uploader LIMIT 50;";                                     
+            INNER JOIN  user ON user_id = uploader AND document_type = $r[0] 
+            LIMIT 50;";                                     
         }
         $results = mysql_query($query,$dst_db);                               
         $n = mysql_num_rows($results);                                         

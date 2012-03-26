@@ -169,6 +169,7 @@ A{
         <a href="#">Add document</a>|&nbsp;&nbsp;                    
         <a href="#">Scholarships</a>|&nbsp;&nbsp;                    
         <a href="#">Grant application</a>|&nbsp;&nbsp;                
+        <a href="policies.php">Policies</a>|&nbsp;&nbsp;
         <a href="#">Report</a>|&nbsp;&nbsp;                               
         <!--span><a href="signout.php">Sign out</a></span>&nbsp;&nbsp;             
         <span style="margin-right:40px;">Login as:                              

@@ -1,6 +1,8 @@
 <?php session_start(); ?>
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
-<script>
+<link rel="stylesheet" type="text/css" media="all" href="javascript/jsdatepick-calendar/jsDatePick_ltr.min.css" />
+<script type="text/javascript" src="javascript/jsdatepick-calendar/jsDatePick.min.1.3.js"></script>
+
+<script type="text/javascript">
   function redirectLogin() {
     document.location = "login.php";
   }
@@ -8,6 +10,17 @@
   function redirectHome() {
     document.location = "index.php";
   }
+
+
+
+  window.onload = function(){
+    new JsDatePick({
+      useMode:2,
+      target:"validity",
+      dateFormat:"%d-%M-%Y"
+    });
+  };
+
 </script>
 <?php
 
@@ -217,8 +230,9 @@ A{
       <div class="header-a">                                                    
         <a href="index.php">Home</a>|&nbsp;&nbsp;                               
         <a href="document.php">Add document</a>|&nbsp;&nbsp;                    
-        <a href="#">Scholarships</a>|&nbsp;&nbsp;                    
+        <a href="scholarships.php">Scholarships</a>|&nbsp;&nbsp;                    
         <a href="#">Grant application</a>|&nbsp;&nbsp;                
+        <a href="policies.php">Policies</a>|&nbsp;&nbsp;
         <a href="#">Report</a>|&nbsp;&nbsp;                               
         <a href="#">Settings</a>|&nbsp;&nbsp;                            
         <a href="user_role.php">Assign user roles</a>|&nbsp;&nbsp;
@@ -282,6 +296,28 @@ A{
           <form action="upload.php" method="post" enctype="multipart/form-data" >
 
           <table>
+          <tr>
+          <td>
+            <label for="Title">Document type:</label>
+          </td>
+          <td>
+            <select name="document_type" id="document_type">
+              <option></option>
+              <?php 
+              $query = "SELECT * FROM document_type";      
+              $results = mysql_query($query,$dst_db);                                 
+              $n = mysql_num_rows($results);
+              if ($n > 0) {   
+                for ($i = 1;$i <= $n;$i++) {                                         
+                  $r = mysql_fetch_row($results);                                                          
+              ?>  
+                <option value="<?php echo $r[0] ?>"><?php echo $r[1] ?></option>
+              <?php
+                } 
+              }?>
+            </select>
+          </td>
+          </tr>
           <tr>
           <td>
             <label for="Title">Title:</label>

@@ -16,6 +16,7 @@ $amount = $_POST['amount'];
 $qualification = 'MBA'; #$_POST['qualification'];
 $validity = $_POST['validity'];
 $keywords = $_POST['keywords'];
+$document_type = $_POST['document_type'];
 
 $user_id = $_SESSION['user_id'];
 $allowed_filetypes = array('.pdf','.odt','.docx','.doc','.csv'); // These will be the types of file that will pass the validation.
@@ -36,7 +37,7 @@ if ($n > 0) {
   $url = 'uploads/'.rand(1000, 1000000).$ext;
 }
 
-$query = "INSERT INTO documents_uploaded VALUES(NULL,'$title','$ministry',$version,'$url','$amount','$validity','$qualification','$keywords',$user_id)";
+$query = "INSERT INTO documents_uploaded VALUES(NULL,$document_type,'$title','$ministry',$version,'$url','$amount','$validity','$qualification','$keywords',$user_id)";
 
 
 // Check if the filetype is allowed, if not DIE and inform the user.
