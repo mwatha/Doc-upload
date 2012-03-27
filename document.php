@@ -17,7 +17,7 @@
     new JsDatePick({
       useMode:2,
       target:"validity",
-      dateFormat:"%d-%M-%Y"
+      dateFormat:"%Y-%m-%d"
     });
   };
 
@@ -340,6 +340,13 @@ A{
           </td>
           <td>
             <select name="version" id="Version">
+            <?php
+              $count = 10;
+              for($i = 1 ; $i <= 10 ; $i++) {?>
+                <option value="<?php $i ?>"><?php echo $i ?></option>
+              <?php
+              }?>
+            </select>
           </td>
          </tr>
          <tr>
@@ -355,7 +362,7 @@ A{
             <label for="amount">Amount:</label>
           </td>
           <td>
-            <input type="text" name="amount" id="amount" />
+            <input type="text" name="amount" id="amount" size="5" />
           </td>
          </tr>
         <tr>
@@ -371,7 +378,7 @@ A{
             <label for="validity">Validity:</label>
           </td>
           <td>
-            <input type="text" name="validity" id="validity" />
+            <input type="text" name="validity" id="validity" size="5" />
           </td>
          </tr>
         <tr>
