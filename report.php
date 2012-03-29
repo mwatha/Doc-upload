@@ -2,14 +2,30 @@
 header('Content-type', 'application/x-force-download');                                        
 ?>
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
-<script>                                                                        
+<link rel="stylesheet" type="text/css" media="all" href="javascript/jsdatepick-calendar/jsDatePick_ltr.min.css" />
+<script type="text/javascript" src="javascript/jsdatepick-calendar/jsDatePick.min.1.3.js"></script>
+<script type="text/javascript">                                                 
   function redirectLogin() {                                                    
     document.location = "login.php";                                            
   }                                                                             
                                                                                 
   function redirectHome() {                                                     
     document.location = "index.php";                                            
-  }                                                                             
+  }     
+  
+  window.onload = function(){                                                    
+    new JsDatePick({                                                            
+      useMode:2,                                                                
+      target:"start_date",                                                             
+      dateFormat:"%Y-%m-%d"                                                     
+    });                                                                         
+  
+    new JsDatePick({                                                            
+      useMode:2,                                                                
+      target:"end_date",                                                             
+      dateFormat:"%Y-%m-%d"                                                     
+    });                                                                         
+  };                                                              
 </script>
 <?php   
 
@@ -171,7 +187,7 @@ A{
   background-color:inherit;
 
 }
-
+/*
 .uploads th, .uploads td {
   text-align: left;
   font-size: 14px;
@@ -182,7 +198,7 @@ A{
 .uploads {
   width: 99%;
 }
-
+*/
 #search_form {                                                                  
  float: right;                                                                  
 }                                                                               
@@ -241,7 +257,7 @@ A{
         <a href="document.php">Add document</a>|&nbsp;&nbsp;                    
         <a href="scholarships.php">Scholarships</a>|&nbsp;&nbsp;                    
         <a href="grants.php">Grant application</a>|&nbsp;&nbsp;                
-        <a href="policies.php">Policies</a>|&nbsp;&nbsp;
+        <a href="policies.php">Policies</a>|&nbsp;&nbsp;                
         <a href="report.php">Report</a>|&nbsp;&nbsp;                               
         <a href="my_account.php">My account</a>|&nbsp;&nbsp;                            
         <a href="user_role.php">Assign user roles</a>|&nbsp;&nbsp;                            
@@ -301,53 +317,53 @@ A{
     </td>
     <td valign="top" class="bg4" colspan="2"><!--img src="images/company_text.gif" border=0 alt=""><br-->
       <div>
-        <h1>Uploaded grant files</h1><br />
+        <h2>Select report type</h2><br />
+        <form id="report" method="post" action="selected_report.php">                
         <table class='uploads'>
           <tr>
-            <th>Title</th>
-            <th style="text-align:center;">Validity</th>
-            <th>&nbsp;</th>
+            <td>Document type</td>
+            <td>
+              <select name = "document_type">
+                <option value=""></option>
+              <?php
+                 $query = "SELECT * FROM document_type";            
+                 $results = mysql_query($query,$dst_db);                                 
+                 $n = mysql_num_rows($results);
+                 if($n > 0) {                                                            
+                   for ($i = 1;$i <= $n;$i++) {                                          
+                     $r = mysql_fetch_row($results);                                     
+                 ?>
+                <option value="<?php echo $r[0];?>"><?php echo $r[1]; ?></option>
+                <?php
+                   }
+                } ?>
+              </select>
+            </td>
           </tr>
-        <?php
-        if(strlen($search_string) > 0) {
-          $query = "SELECT * FROM documents_uploaded WHERE keywords LIKE '%$search_string%' OR title LIKE '%$search_string%' OR ministry LIKE '%$search_string%' LIMIT 50;";                                     
-        }else{
-          $query = "SELECT document_type_id FROM document_type WHERE name = 'Grants';";                                     
-          $results = mysql_query($query,$dst_db);                               
-          $r = mysql_fetch_row($results);                                        
-          $query = "SELECT title,validity,url FROM documents_uploaded d 
-            INNER JOIN  user ON user_id = uploader AND document_type = $r[0] 
-            LIMIT 50;";                                     
-        }
-        $results = mysql_query($query,$dst_db);                               
-        $n = mysql_num_rows($results);                                         
-                          
-        if($n > 0) {                   
-          for ($i = 1;$i <= $n;$i++) {                                         
-            $r = mysql_fetch_row($results);                                        
-        ?>                                                                            
           <tr>
-            <td><?php echo $r[0]; ?></td>       
-            <td style="text-align:center;"><?php echo $r[1]; ?></td>       
-            <td style="text-align:center;"><a href="<?php echo $r[2] ?>">Download</a></td>   
-         </tr>    
-       <?php                                                                   
-          }                                                                          
-        }else{ 
-          if(strlen($search_string) > 0) {
-        ?>                                                                            
-         <tr> 
-          <td colspan="6" style="text-align: center;">No files found matching <?php echo $search_string ?></td>   
-         </tr>
-        <?php 
-          }else{ ?>
-         <tr> 
-          <td colspan="6" style="text-align: center;">No files uploaded yet</td>   
-         </tr>
-          <?php
-          }
-        }?> 
+            <td>Uploaded date</td>
+            <td>
+              <input type="text" name="start_date" id="start_date" size="5" />
+              &nbsp;To&nbsp;
+              <input type="text" name="end_date" id="end_date" size="5" />
+            </td>
+          </tr>
+          <tr>
+            <td style="vertical-align:text-top;">Keywords</td>
+            <td>
+              <textarea name="keywords" id="Keywords" rows="5" cols="45"></textarea>
+            </td>
+          </tr>
+
+          <tr>                                                                      
+            <td>&nbsp;</td>                                                         
+            <td style="text-align:right">                                           
+              <input type="submit" name="submit" id="submit" value="Submit" />&nbsp;  
+            </td>
+          </tr>        
+
         </table>
+        </form>
       </div>
     </td>
   </tr>

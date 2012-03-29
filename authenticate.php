@@ -20,7 +20,9 @@ if($n > 0) {
   window.location="index.php";
 <?php
 }else{ ?>
-  window.location="login.php";
+  document.write("Wrong username or password");
+  setTimeout("redirect();",4000);
+  function redirect() { history.go(-1); }
 <?php
 } ?>
 </script>

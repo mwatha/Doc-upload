@@ -6,6 +6,8 @@
 
 <?php 
 
+$datetime =  date("D M j G:i:s T Y");
+
 $dst_db = mysql_pconnect("localhost","root","letusout");                        
 mysql_select_db("dst", $dst_db);
 
@@ -13,7 +15,6 @@ $title = $_POST['title'];
 $ministry = $_POST['ministry'];
 $version = 1; #$_POST['version'];
 $amount = $_POST['amount'];
-$qualification = 'MBA'; #$_POST['qualification'];
 $validity = $_POST['validity'];
 $keywords = $_POST['keywords'];
 $document_type = $_POST['document_type'];
@@ -37,7 +38,8 @@ if ($n > 0) {
   $url = 'uploads/'.rand(1000, 1000000).$ext;
 }
 
-$query = "INSERT INTO documents_uploaded VALUES(NULL,$document_type,'$title','$ministry',$version,'$url','$amount','$validity','$qualification','$keywords',$user_id)";
+
+$query = "INSERT INTO documents_uploaded VALUES(NULL,$document_type,'$title','$ministry',$version,'$url','$amount','$validity','$keywords',$user_idi,'$datetime')";
 
 
 // Check if the filetype is allowed, if not DIE and inform the user.

@@ -35,7 +35,7 @@ $r = mysql_fetch_row($results);
 $n = mysql_num_rows($results);
 
 if ($n > 0) {
-  if ($r[0] !="admin") { ?>
+  if ($r[0] =="guest") { ?>
     <script>
       document.write('You dont have permission to view this page.');         
       setTimeout("redirectHome();", 4000);
@@ -231,10 +231,10 @@ A{
         <a href="index.php">Home</a>|&nbsp;&nbsp;                               
         <a href="document.php">Add document</a>|&nbsp;&nbsp;                    
         <a href="scholarships.php">Scholarships</a>|&nbsp;&nbsp;                    
-        <a href="#">Grant application</a>|&nbsp;&nbsp;                
+        <a href="grants.php">Grant application</a>|&nbsp;&nbsp;                
         <a href="policies.php">Policies</a>|&nbsp;&nbsp;
-        <a href="#">Report</a>|&nbsp;&nbsp;                               
-        <a href="#">Settings</a>|&nbsp;&nbsp;                            
+        <a href="report.php">Report</a>|&nbsp;&nbsp;                               
+        <a href="my_account.php">My account</a>|&nbsp;&nbsp;                            
         <a href="user_role.php">Assign user roles</a>|&nbsp;&nbsp;
         <span><a href="signout.php">Sign out</a></span>&nbsp;&nbsp;             
         <span style="margin-right:40px;">Login as:                              
@@ -365,14 +365,15 @@ A{
             <input type="text" name="amount" id="amount" size="5" />
           </td>
          </tr>
-        <tr>
+        <!--tr>
           <td>
             <label for="Version">Qualification:</label>
           </td>
           <td>
             <select name="qualification" id="qualification">
+            </select>
           </td>
-         </tr>
+         </tr-->
         <tr>
           <td>
             <label for="validity">Validity:</label>

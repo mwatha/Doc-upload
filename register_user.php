@@ -10,7 +10,28 @@
 
 <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
 
+<link rel="stylesheet" type="text/css" media="all" href="javascript/jsdatepick-calendar/jsDatePick_ltr.min.css" />
+<script type="text/javascript" src="javascript/jsdatepick-calendar/jsDatePick.min.1.3.js"></script>
+                                                                                
+<script type="text/javascript">
+
+ window.onload = function(){                                                   
+    new JsDatePick({                                                            
+      useMode:2,                                                                
+      target:"dob",                                                        
+      dateFormat:"%Y-%m-%d"                                                     
+    });                                                                         
+  }; 
+</script>
+
+
 <style type="text/css">
+
+.main-imagine{                                                                  
+  background-repeat: no-repeat;                                                 
+  height: 150px;                                                                
+  width: 99%;                                                                   
+}
 
 body{
 
@@ -162,7 +183,7 @@ A{
   <tr>
     <div class="header">
       <div class="header-a">
-        <a href="">HOME</a>&nbsp;&nbsp;
+        <!--a href="">HOME</a>&nbsp;&nbsp;
         <a href="">ADD DOCUMENT</a>&nbsp;&nbsp;
         <a href="">ADD USER</a>&nbsp;&nbsp;
         <a href="">EDIT USER ROLES</a>&nbsp;&nbsp;
@@ -173,7 +194,7 @@ A{
         <form id="search_form" method="post" action="index.php">
           <input type="text" size="12" name="search_string" />
         </form>
-      </div>
+      </div-->&nbsp;
     </div>
     <!-- td valign=top><a href=""><img src="images/menu1.gif" border=0 alt=""></a></td>
 
@@ -197,7 +218,7 @@ A{
 
     <td valign=top colspan=8><img src="images/malawi.jpg" border=0 alt=""></td>
 
-    <td width="100%" class="bg2"></td>
+    <td width="100%" class="bg2"><img src="images/lilongwe.png" class="main-imagine"/></td>
 
   </tr>
 
@@ -234,16 +255,13 @@ A{
         <td><input type="text" name="lname" id="lname" /></td>
       </tr>
       <tr>
-        <td>DOB:</td>
-        <td>Year:&nbsp;
-        <select name="Year" id="Year"></select>
-        &nbsp;Month:&nbsp;<select name="Month" id="Month">
-        &nbsp;</select>Day:<select name="Date" id="Date"></select></td>
+        <td>Birthdate:</td>
+        <td><input type="text" name="dob" id="dob" size="5" /></td>
      </tr>
-     <tr>
+     <!--tr>
       <td>Profession:</td> 
-      <td><select name="job" id="job"></select></td>
-     </tr>
+      <td><input type="text" name="job" id="job" /></td>
+     </tr-->
       <tr>
         <td><label for="Username">Username:</label></td>
         <td><input type="text" name="username" id="username" /></td>

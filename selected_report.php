@@ -1,42 +1,62 @@
-<?php session_start(); ?>
+<?php session_start();                                                                
+header('Content-type', 'application/x-force-download');                                        
+?>
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
-<script>
-  function redirectLogin() {
-    document.location = "login.php";
-  }
-  
-  function redirectHome() {
-    document.location = "index.php";
-  }
+<script>                                                                        
+  function redirectLogin() {                                                    
+    document.location = "login.php";                                            
+  }                                                                             
+                                                                                
+  function redirectHome() {                                                     
+    document.location = "index.php";                                            
+  }                                                                             
 </script>
-<?php
+<?php   
 
+                                                                                
 $dst_db = mysql_pconnect("localhost","root","letusout");                        
-mysql_select_db("dst", $dst_db);
+mysql_select_db("dst", $dst_db);                                                
+                                                                                
 
-$user_id = $_SESSION['user_id'];
-
-$user_role = "SELECT role FROM user_role WHERE user_id = $user_id LIMIT 1";      
-$results = mysql_query($user_role,$dst_db);                                 
-$r = mysql_fetch_row($results);
-$n = mysql_num_rows($results);
-
-if ($n > 0) {
-  if ($r[0] !="admin") { ?>
-    <script>
-      document.write('You dont have permission to view this page.');         
-      setTimeout("redirectHome();", 4000);
-    </script><?php 
-    exit;
-  }
-}else{ ?>
-  <script>
-    document.write('Your not logged in!');         
-    setTimeout("redirectLogin();", 4000);
-  </script><?php 
-  exit;
+if($_SESSION['user_id'] == null) { ?>
+  <script>redirectLogin();</script><?php
+}else{
+  $user_id = $_SESSION['user_id'];                                                
 }
 
+$user_role = "SELECT role FROM user_role WHERE user_id = $user_id LIMIT 1";     
+$results = mysql_query($user_role,$dst_db);                                     
+$r = mysql_fetch_row($results);                                                 
+$n = mysql_num_rows($results);                                                  
+                                                                                
+if ($n > 0) {                                                                   
+  if ($r[0] !="admin") { 
+  }                                                                             
+}else{ ?>                                                                       
+  <script>                                                                      
+    document.write('Your not logged in!');                                      
+    setTimeout("redirectLogin();", 4000);                                       
+  </script><?php                                                                
+  exit;                                                                         
+}                                                                               
+                                                                                
+
+
+
+#$user_id_query = "SELECT user_id FROM user ORDER BY user_id DESC LIMIT 1";      
+#$results = mysql_query($user_id_query,$dst_db);                                 
+#$r = mysql_fetch_row($results);
+
+
+$document_type = $_POST['document_type'];
+$start_date = $_POST['start_date'].'00:00:00';
+$end_date = $_POST['end_date'].' 23:59:59';
+$keywords = $_POST['keywords'];
+
+$query = "SELECT * FROM documents_uploaded WHERE document_type = $document_type
+          AND datetime_uploaded >= '$start_date' AND datetime_uploaded <= '$end_date'
+          AND keywords LIKE '%$keywords%' OR title LIKE '%$keywords%'                                    
+          OR ministry LIKE '%$keywords%';"
 ?>
 
 
@@ -44,7 +64,7 @@ if ($n > 0) {
 
 <head>
 
-<title>Assign user role</title>
+<title>Selected report</title>
 
 <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
 
@@ -110,10 +130,10 @@ A{
 
 }
 
-.main-imagine{                                                                  
-  background-repeat: no-repeat;                                                 
-  height: 150px;                                                                
-  width: 99%;                                                                   
+.main-imagine{
+  background-repeat: no-repeat;
+  height: 150px;
+  width: 99%;
 }
 
 .bg3{
@@ -160,10 +180,21 @@ A{
 
 }
 
-#search_form {
- float: right;
+.uploads th, .uploads td {
+  text-align: left;
+  font-size: 14px;
+  border-style: solid;
+  border-width: 1px;
 }
 
+.uploads {
+  width: 99%;
+}
+
+#search_form {                                                                  
+ float: right;                                                                  
+}                                                                               
+                                                                                
 .header {                                                                       
   text-align: right;                                                            
 }                                                                               
@@ -182,26 +213,25 @@ A{
                                                                                 
 .header-a span {                                                                
   float: right;                                                                 
-  background-color: inherit;                                                    
-  color: #000000;                                                               
-  font-family: Verdana,Arial,Helvetica,sans-serif;                              
-  font-size: 10px;                                                              
-  font-weight: bold;                                                            
-  text-decoration: none;                                                        
-}                                                                               
-                                                                                
-.header-form span {                                                             
-  background-color: inherit;                                                    
-  color: #000000;                                                               
-  font-family: Verdana,Arial,Helvetica,sans-serif;                              
-  font-size: 10px;                                                              
-  font-weight: bold;                                                            
-  text-decoration: none;                                                        
-} 
+  background-color: inherit;
+  color: #000000;
+  font-family: Verdana,Arial,Helvetica,sans-serif;
+  font-size: 10px;
+  font-weight: bold;
+  text-decoration: none;
+}                
+
+.header-form span {
+  background-color: inherit;
+  color: #000000;
+  font-family: Verdana,Arial,Helvetica,sans-serif;
+  font-size: 10px;
+  font-weight: bold;
+  text-decoration: none;
+}
 </style>
 
 </head>
-
 
 
 <body>
@@ -213,7 +243,7 @@ A{
 <table cellpadding=0 cellspacing=0 border=0 width="100%">
 
   <tr>
-     <div class="header">                                                        
+    <div class="header">                                                        
       <div class="header-a">                                                    
         <a href="index.php">Home</a>|&nbsp;&nbsp;                               
         <a href="document.php">Add document</a>|&nbsp;&nbsp;                    
@@ -222,15 +252,15 @@ A{
         <a href="policies.php">Policies</a>|&nbsp;&nbsp;                
         <a href="report.php">Report</a>|&nbsp;&nbsp;                               
         <a href="my_account.php">My account</a>|&nbsp;&nbsp;                            
-        <a href="user_role.php">Assign user roles</a>|&nbsp;&nbsp;
-        <span><a href="signout.php">Sign out</a></span>&nbsp;&nbsp;             
-        <span style="margin-right:40px;">Login as:                              
+        <a href="user_role.php">Assign user roles</a>|&nbsp;&nbsp;                            
+        <span><a href="signout.php">Sign out</a></span>&nbsp;&nbsp;
+        <span style="margin-right:40px;">Login as:
           <font style="color:orangeRed;">&nbsp;<?php echo $_SESSION['username'] ?></font>
-        </span>                                                                 
+        </span>   
       </div>                                                                    
       <div class="header-form">                                                 
         <form id="search_form" method="post" action="index.php">                
-          <span>Search:</span>&nbsp;&nbsp;                                      
+          <span>Search:</span>&nbsp;&nbsp;
           <input type="text" size="12" name="search_string" />                  
         </form>                                                                 
       </div>                                                                    
@@ -279,60 +309,43 @@ A{
     </td>
     <td valign="top" class="bg4" colspan="2"><!--img src="images/company_text.gif" border=0 alt=""><br-->
       <div>
-          
-          <form action="assign_role.php" method="post" enctype="multipart/form-data" >
-
-          <table>
+        <h1>Uploaded files</h1><br />
+        <table class='uploads'>
           <tr>
-          <td>
-            <label for="Title">Select username:</label>
-          </td>
-          <td>
-            <select name="user_id"> 
-            <?php
-              $query = "SELECT user_id,username FROM user_account;";      
-              $results = mysql_query($query,$dst_db);                                 
-              $n = mysql_num_rows($results);
-
-              if($n > 0) { ?>
-                <option value=""></option> 
-              <?php for($i = 0; $i < $n; $i++) {
-                $r = mysql_fetch_row($results);
-             ?>
-                <option value="<?php echo $r[0]; ?>"><?php echo $r[1]; ?></option> 
-              <?php 
-                }
-              }
-             ?>
-          </td>
-        </tr>
-         <tr>
-          <td>
-            <label for="Title">Select user role:</label>
-          </td>
-          <td>
-            <select name="select_user_role">
-              <option value=""></option> 
-              <option value="guest">Guest</option> 
-              <option value="admin">Administrator</option> 
-              <option value="staff">Staff</option> 
-            </select>
-          </td>
+            <th>Title</th>
+            <th style="text-align:center;">Validity</th>
+            <th>&nbsp;</th>
+          </tr>
+        <?php
+        $results = mysql_query($query,$dst_db);                               
+        $n = mysql_num_rows($results);                                         
+                          
+        if($n > 0) {                   
+          for ($i = 1;$i <= $n;$i++) {                                         
+            $r = mysql_fetch_row($results);                                        
+        ?>                                                                            
+          <tr>
+            <td><?php echo $r[0]; ?></td>       
+            <td style="text-align:center;"><?php echo $r[1]; ?></td>       
+            <td style="text-align:center;"><a href="<?php echo $r[2] ?>">Download</a></td>   
+         </tr>    
+       <?php                                                                   
+          }                                                                          
+        }else{ 
+          if(strlen($keywords) > 0) {
+        ?>                                                                            
+         <tr> 
+          <td colspan="6" style="text-align: center;">No files found matching <?php echo $keywords ?></td>   
          </tr>
-         <tr>
-          <td colspan="2">
-            &nbsp;
-          </td>
+        <?php 
+          }else{ ?>
+         <tr> 
+          <td colspan="6" style="text-align: center;">No files uploaded yet</td>   
          </tr>
-         <tr>
-          <td colspan="2">
-            <input type="submit" name="Submit" id="Submit" value="Assign" />
-          </td>
-         </tr>
+          <?php
+          }
+        }?> 
         </table>
-        </select>
-    </form>
-
       </div>
     </td>
   </tr>

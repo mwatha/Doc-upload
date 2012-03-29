@@ -242,8 +242,8 @@ A{
         <a href="scholarships.php">Scholarships</a>|&nbsp;&nbsp;                    
         <a href="grants.php">Grant application</a>|&nbsp;&nbsp;                
         <a href="policies.php">Policies</a>|&nbsp;&nbsp;                
-        <a href="#">Report</a>|&nbsp;&nbsp;                               
-        <a href="#">Settings</a>|&nbsp;&nbsp;                            
+        <a href="report.php">Report</a>|&nbsp;&nbsp;                               
+        <a href="my_account.php">My account</a>|&nbsp;&nbsp;                            
         <a href="user_role.php">Assign user roles</a>|&nbsp;&nbsp;                            
         <span><a href="signout.php">Sign out</a></span>&nbsp;&nbsp;
         <span style="margin-right:40px;">Login as:

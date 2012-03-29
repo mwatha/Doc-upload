@@ -55,11 +55,11 @@ CREATE TABLE `documents_uploaded` (
   `url` text NOT NULL,
   `amount` varchar(255) NOT NULL,
   `validity` varchar(255) NOT NULL,
-  `qualification` varchar(255) NOT NULL,
   `keywords` text NOT NULL,
   `uploader` int(11) NOT NULL,
+  `datetime_uploaded` datetime DEFAULT NULL,
   PRIMARY KEY (`document_id`)
-) ENGINE=MyISAM AUTO_INCREMENT=12 DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM AUTO_INCREMENT=14 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -133,7 +133,7 @@ CREATE TABLE `user` (
   `gender` varchar(6) NOT NULL,
   `location` varchar(255) NOT NULL,
   PRIMARY KEY (`user_id`)
-) ENGINE=MyISAM AUTO_INCREMENT=23 DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM AUTO_INCREMENT=25 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -159,7 +159,7 @@ CREATE TABLE `user_account` (
   `email` varchar(255) NOT NULL,
   `user_id` int(11) NOT NULL,
   PRIMARY KEY (`acc_id`)
-) ENGINE=MyISAM AUTO_INCREMENT=14 DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM AUTO_INCREMENT=16 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -202,4 +202,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2012-03-27  9:55:23
+-- Dump completed on 2012-03-29 17:11:34

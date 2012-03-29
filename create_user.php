@@ -1,11 +1,24 @@
-<?php session_start();
+<?php session_start(); ?>
+
+<script>
+
+  function successfullLogin() {
+    location.href = "index.php";
+  }
+  
+  function redirect() {
+    history.go(-1);
+  }
+</script>
+
+<?php
 
 $dst_db = mysql_pconnect("localhost","root","letusout");                        
 mysql_select_db("dst", $dst_db);      
  
 $fname = $_POST["fname"];                                                       
 $lname = $_POST["lname"];                                                       
-$dob = "199-01-01"; 
+$dob = $_POST["dob"]; 
 $role = "Guest";                                                   
 #$job = $_POST["job"]
 $sex = "Female"; 
@@ -13,6 +26,36 @@ $username = $_POST["username"];
 $email = $_POST["email"];                                                   
 $password = $_POST["pswd"];                                                   
 $address = $_POST["address"];                                                   
+
+
+$query = "SELECT * FROM user_account WHERE email = '$email'";                      
+$results = mysql_query($query,$dst_db);                                     
+$users = mysql_num_rows($results);                                                  
+                                                                                
+if ($users > 0) { ?>                                                                
+  <script>                                                                      
+    document.write("<?php echo $email ?>  exists already");                         
+    setTimeout("redirect();",4000);                                             
+  </script>                                                                     
+<?php                                                                           
+  exit;                                                                         
+}
+
+
+$query = "SELECT * FROM user_account WHERE username = '$username'";                      
+$results = mysql_query($query,$dst_db);                                     
+$users = mysql_num_rows($results);                                                  
+                                                                                
+if ($users > 0) { ?>                                                                
+  <script>                                                                      
+    document.write("Username: <?php echo $username ?>  exists already");                         
+    setTimeout("redirect();",4000);                                             
+  </script>                                                                     
+<?php                                                                           
+  exit;                                                                         
+}
+
+
  
 $user_query = "INSERT INTO user VALUES(NULL,'$fname','$lname','$dob','$sex','$address')";                                     
 mysql_query($user_query,$dst_db); 
@@ -35,6 +78,7 @@ $_SESSION['username'] = $username;
 $_SESSION['user_id'] = $r[0]; 
 
 ?>
+
 <script>
-  location.href = "index.php";
+  successfullLogin();
 </script>

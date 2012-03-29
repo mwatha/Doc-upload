@@ -1,52 +1,58 @@
 <?php session_start(); ?>
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
-<script>
-  function redirectLogin() {
-    document.location = "login.php";
-  }
-  
-  function redirectHome() {
-    document.location = "index.php";
-  }
-</script>
-<?php
 
+<script>                                                                        
+  function redirectLogin() {                                                    
+    document.location = "login.php";                                            
+  }                                                                             
+                                                                                
+  function redirectHome() {                                                     
+    document.location = "index.php";                                            
+  }                                                                             
+</script>                                                                       
+<?php                                                                           
+                                                                                
+                                                                                
 $dst_db = mysql_pconnect("localhost","root","letusout");                        
-mysql_select_db("dst", $dst_db);
+mysql_select_db("dst", $dst_db);                                                
+                                                                                
+                                                                                
+if($_SESSION['user_id'] == null) { ?>                                           
+  <script>redirectLogin();</script><?php                                        
+}else{                                                                          
+  $user_id = $_SESSION['user_id'];                                              
+  $query = "SELECT username,email,fname,lname,gender,dob,
+            location FROM user u 
+            INNER JOIN user_account a 
+            ON u.user_id = a.user_id AND u.user_id = $user_id";
 
-$user_id = $_SESSION['user_id'];
-
-$user_role = "SELECT role FROM user_role WHERE user_id = $user_id LIMIT 1";      
-$results = mysql_query($user_role,$dst_db);                                 
-$r = mysql_fetch_row($results);
-$n = mysql_num_rows($results);
-
-if ($n > 0) {
-  if ($r[0] !="admin") { ?>
-    <script>
-      document.write('You dont have permission to view this page.');         
-      setTimeout("redirectHome();", 4000);
-    </script><?php 
-    exit;
-  }
-}else{ ?>
-  <script>
-    document.write('Your not logged in!');         
-    setTimeout("redirectLogin();", 4000);
-  </script><?php 
-  exit;
+  $results = mysql_query($query,$dst_db);                                     
+  $r = mysql_fetch_row($results);                                                 
 }
 
 ?>
-
 
 <html>
 
 <head>
 
-<title>Assign user role</title>
+<title>Edit user details</title>
 
 <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+
+<link rel="stylesheet" type="text/css" media="all" href="javascript/jsdatepick-calendar/jsDatePick_ltr.min.css" />
+<script type="text/javascript" src="javascript/jsdatepick-calendar/jsDatePick.min.1.3.js"></script>
+                                                                                
+<script type="text/javascript">
+
+ window.onload = function(){                                                   
+    new JsDatePick({                                                            
+      useMode:2,                                                                
+      target:"dob",                                                        
+      dateFormat:"%Y-%m-%d"                                                     
+    });                                                                         
+  }; 
+</script>
+
 
 <style type="text/css">
 
@@ -198,6 +204,7 @@ A{
   font-weight: bold;                                                            
   text-decoration: none;                                                        
 } 
+
 </style>
 
 </head>
@@ -213,16 +220,16 @@ A{
 <table cellpadding=0 cellspacing=0 border=0 width="100%">
 
   <tr>
-     <div class="header">                                                        
+    <div class="header">                                                       
       <div class="header-a">                                                    
         <a href="index.php">Home</a>|&nbsp;&nbsp;                               
         <a href="document.php">Add document</a>|&nbsp;&nbsp;                    
-        <a href="scholarships.php">Scholarships</a>|&nbsp;&nbsp;                    
-        <a href="grants.php">Grant application</a>|&nbsp;&nbsp;                
-        <a href="policies.php">Policies</a>|&nbsp;&nbsp;                
-        <a href="report.php">Report</a>|&nbsp;&nbsp;                               
-        <a href="my_account.php">My account</a>|&nbsp;&nbsp;                            
-        <a href="user_role.php">Assign user roles</a>|&nbsp;&nbsp;
+        <a href="scholarships.php">Scholarships</a>|&nbsp;&nbsp;                
+        <a href="#">Grant application</a>|&nbsp;&nbsp;                          
+        <a href="policies.php">Policies</a>|&nbsp;&nbsp;                        
+        <a href="report.php">Report</a>|&nbsp;&nbsp;                                     
+        <a href="my_account.php">My account</a>|&nbsp;&nbsp;                    
+        <a href="user_role.php">Assign user roles</a>|&nbsp;&nbsp;              
         <span><a href="signout.php">Sign out</a></span>&nbsp;&nbsp;             
         <span style="margin-right:40px;">Login as:                              
           <font style="color:orangeRed;">&nbsp;<?php echo $_SESSION['username'] ?></font>
@@ -279,59 +286,58 @@ A{
     </td>
     <td valign="top" class="bg4" colspan="2"><!--img src="images/company_text.gif" border=0 alt=""><br-->
       <div>
-          
-          <form action="assign_role.php" method="post" enctype="multipart/form-data" >
 
-          <table>
-          <tr>
-          <td>
-            <label for="Title">Select username:</label>
-          </td>
-          <td>
-            <select name="user_id"> 
-            <?php
-              $query = "SELECT user_id,username FROM user_account;";      
-              $results = mysql_query($query,$dst_db);                                 
-              $n = mysql_num_rows($results);
+      <form action="edit_user.php" method="post">
 
-              if($n > 0) { ?>
-                <option value=""></option> 
-              <?php for($i = 0; $i < $n; $i++) {
-                $r = mysql_fetch_row($results);
-             ?>
-                <option value="<?php echo $r[0]; ?>"><?php echo $r[1]; ?></option> 
-              <?php 
-                }
-              }
-             ?>
-          </td>
-        </tr>
-         <tr>
-          <td>
-            <label for="Title">Select user role:</label>
-          </td>
-          <td>
-            <select name="select_user_role">
-              <option value=""></option> 
-              <option value="guest">Guest</option> 
-              <option value="admin">Administrator</option> 
-              <option value="staff">Staff</option> 
-            </select>
-          </td>
-         </tr>
-         <tr>
-          <td colspan="2">
-            &nbsp;
-          </td>
-         </tr>
-         <tr>
-          <td colspan="2">
-            <input type="submit" name="Submit" id="Submit" value="Assign" />
-          </td>
-         </tr>
-        </table>
-        </select>
-    </form>
+  
+      <table>
+      <caption>Edit account:</caption>
+      <tr>
+        <td><label for="Username">Username:</label></td>
+        <td><input type="text" name="username" id="username" value="<?php echo $r[0]; ?>" /></td>
+      </tr>
+      <tr>
+        <td><label for="Name">First name:</label></td>
+        <td><input type="text" name="fname" id="fname" value="<?php echo $r[2]; ?>" /></td>
+      </tr>
+      <tr>
+        <td><label for="Name">Last name:</label></td>
+        <td><input type="text" name="lname" id="lname" value="<?php echo $r[3]; ?>" /></td>
+      </tr>
+      <tr>
+        <td>Birthdate:</td>
+        <td><input type="text" name="dob" id="dob" size="10" value="<?php echo $r[5]; ?>" /></td>
+     </tr>
+     <!--tr>
+      <td>Profession:</td> 
+      <td><input type="text" name="job" id="job" /></td>
+     </tr-->
+      <tr>
+        <td><label for="Email">Email address:</label></td>
+        <td><input type="text" name="email" id="email" value="<?php echo $r[1]; ?>" /></td>
+      </tr>
+      <tr>
+        <td><label for="Email">Address:</label></td>
+        <td><textarea name="address" id="address"  cols="30" rows="3"><?php echo $r[6]; ?></textarea></td>
+      </tr>
+      <tr>
+        <td><label for="Pswd">Enter Password:</label></td>
+        <td><input type="password" name="pswd" id="pswd" /></td>
+      </tr>
+      <tr>
+        <td><label for="Confirm">Confirm Password:</label></td>
+        <td><input type="password" name="confirm" id="confirm" /></td>
+      </tr>
+      <tr>
+        <td>&nbsp;</td>
+        <td style="text-align:right">
+        <input type="submit" name="submit" id="submit" value="Submit" />&nbsp;
+        <input type="button" name="cancel" id="cancel" value="Cancel" onclick="javascript:location='index.php'" /></td>
+      </tr>
+      </table>
+
+      </form>
+
 
       </div>
     </td>
