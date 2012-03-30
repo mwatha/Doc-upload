@@ -6,8 +6,6 @@
 
 <?php 
 
-$datetime =  date("D M j G:i:s T Y");
-
 $dst_db = mysql_pconnect("localhost","root","letusout");                        
 mysql_select_db("dst", $dst_db);
 
@@ -39,8 +37,16 @@ if ($n > 0) {
 }
 
 
-$query = "INSERT INTO documents_uploaded VALUES(NULL,$document_type,'$title','$ministry',$version,'$url','$amount','$validity','$keywords',$user_idi,'$datetime')";
+$hour =  date("G") - 1;
+if ($hour < 9) {
+  $hour = "0".$hour;
+}
 
+$time =  $hour.date(":i:s");
+$datetime = date("Y-m-d ").$time;
+
+$query = "INSERT INTO documents_uploaded VALUES(NULL,$document_type,'$title',
+          '$ministry',$version,'$url','$amount','$validity','$keywords',$user_id,'$datetime')";
 
 // Check if the filetype is allowed, if not DIE and inform the user.
 if(!in_array($ext,$allowed_filetypes)) {

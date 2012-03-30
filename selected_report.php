@@ -40,23 +40,27 @@ if ($n > 0) {
   exit;                                                                         
 }                                                                               
                                                                                 
-
-
-
-#$user_id_query = "SELECT user_id FROM user ORDER BY user_id DESC LIMIT 1";      
-#$results = mysql_query($user_id_query,$dst_db);                                 
-#$r = mysql_fetch_row($results);
-
-
 $document_type = $_POST['document_type'];
-$start_date = $_POST['start_date'].'00:00:00';
+$start_date = $_POST['start_date'].' 00:00:00';
 $end_date = $_POST['end_date'].' 23:59:59';
 $keywords = $_POST['keywords'];
 
-$query = "SELECT * FROM documents_uploaded WHERE document_type = $document_type
-          AND datetime_uploaded >= '$start_date' AND datetime_uploaded <= '$end_date'
-          AND keywords LIKE '%$keywords%' OR title LIKE '%$keywords%'                                    
-          OR ministry LIKE '%$keywords%';"
+$query_str = "SELECT fname,lname,email,title,ministry,version,validity,datetime_uploaded,url 
+             FROM documents_uploaded d
+             INNER JOIN user u ON u.user_id = d.uploader
+             INNER JOIN user_account c ON c.user_id = u.user_id
+             WHERE document_type = $document_type
+             AND datetime_uploaded >= '$start_date' AND datetime_uploaded <= '$end_date'
+             AND keywords LIKE '%$keywords%' OR title LIKE '%$keywords%'";
+$q = "SELECT name FROM document_type WHERE document_type_id = $document_type LIMIT 1";
+$results = mysql_query($q,$dst_db);                               
+$n = mysql_num_rows($results);                                         
+                         
+                          
+if($n > 0) {                   
+  $r = mysql_fetch_row($results);    
+  $report_type = $r[0];
+}
 ?>
 
 
@@ -301,23 +305,27 @@ A{
 
   <tr>
 
-    <td valign=top class="bg3"><!--img src="images/news.gif" border=0 alt=""-->
+    <!--td valign=top class="bg3"><img src="images/news.gif" border=0 alt="">
 
       <div><b>Malawi Government</b><br><br>
         The Government of Malawi established the Department of Science and Technology in the Ministry of Education Science and Technology in 2009. The department is operating in a dynamic environment; politically, economically, socially, technologically, legally and environmentally. The department is expected to play a major role in facilitating innovative competitiveness and production of high quality products for accelerated economic growth through the formulation and review of science, technology and innovation policies and fostering international cooperation in science and technology.
       </div>
-    </td>
-    <td valign="top" class="bg4" colspan="2"><!--img src="images/company_text.gif" border=0 alt=""><br-->
+    </td-->
+    <td valign="top" class="bg4" colspan="3"><!--img src="images/company_text.gif" border=0 alt=""><br-->
       <div>
-        <h1>Uploaded files</h1><br />
+        <h1>Uploaded files (<?php echo $report_type ?>)</h1><br />
         <table class='uploads'>
           <tr>
             <th>Title</th>
-            <th style="text-align:center;">Validity</th>
+            <th>Ministry</th>
+            <th>Version</th>
+            <th>Validity</th>
+            <th>Uploader</th>
+            <th>Date uploaded</th>
             <th>&nbsp;</th>
           </tr>
         <?php
-        $results = mysql_query($query,$dst_db);                               
+        $results = mysql_query($query_str,$dst_db);                               
         $n = mysql_num_rows($results);                                         
                           
         if($n > 0) {                   
@@ -325,9 +333,13 @@ A{
             $r = mysql_fetch_row($results);                                        
         ?>                                                                            
           <tr>
-            <td><?php echo $r[0]; ?></td>       
-            <td style="text-align:center;"><?php echo $r[1]; ?></td>       
-            <td style="text-align:center;"><a href="<?php echo $r[2] ?>">Download</a></td>   
+            <td><?php echo $r[3]; ?></td>       
+            <td><?php echo $r[4]; ?></td>       
+            <td><?php echo $r[5]; ?></td>       
+            <td><?php echo $r[6]; ?></td>       
+            <td><?php echo $r[0].' '.$r[1]; ?></td>       
+            <td><?php echo $r[7]; ?></td>       
+            <td style="text-align:center;"><a href="<?php echo $r[8]; ?>">Download</a></td>   
          </tr>    
        <?php                                                                   
           }                                                                          
