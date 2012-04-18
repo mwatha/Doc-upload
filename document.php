@@ -237,7 +237,7 @@ A{
         <a href="my_account.php">My account</a>|&nbsp;&nbsp;                            
         <a href="user_role.php">Assign user roles</a>|&nbsp;&nbsp;
         <span><a href="signout.php">Sign out</a></span>&nbsp;&nbsp;             
-        <span style="margin-right:40px;">Login as:                              
+        <span style="margin-right:40px;">Welcome:                              
           <font style="color:orangeRed;">&nbsp;<?php echo $_SESSION['username'] ?></font>
         </span>                                                                 
       </div>                                                                    
@@ -365,15 +365,7 @@ A{
             <input type="text" name="amount" id="amount" size="5" />
           </td>
          </tr>
-        <!--tr>
-          <td>
-            <label for="Version">Qualification:</label>
-          </td>
-          <td>
-            <select name="qualification" id="qualification">
-            </select>
-          </td>
-         </tr-->
+        
         <tr>
           <td>
             <label for="validity">Validity:</label>
@@ -405,12 +397,7 @@ A{
   <tr>
     <td class="bg6" ALIGN="CENTER" COLSPAN="2">
       <div>
-      <!--a href="">HOME</a>&nbsp;&nbsp;
-      <a href="">ABOUT US</a>&nbsp;&nbsp;
-      <a href="">SERVICES</a>&nbsp;&nbsp;
-      <a href="">SUPPORT</a>&nbsp;&nbsp;
-      <a href="">ABOUT SITE</a>&nbsp;&nbsp;
-      <a href="">CONTACT US</a-->
+      
       </div>
     </td>
     <td class="bg6" width="100%">&nbsp;</td>

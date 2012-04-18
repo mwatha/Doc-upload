@@ -14,7 +14,7 @@ header('Content-type', 'application/x-force-download');
 <?php   
 
                                                                                 
-$dst_db = mysql_pconnect("localhost","root","letusout");                        
+$dst_db = mysql_pconnect("localhost","root","");                        
 mysql_select_db("dst", $dst_db);                                                
                                                                                 
 
@@ -258,7 +258,7 @@ A{
         <a href="my_account.php">My account</a>|&nbsp;&nbsp;                            
         <a href="user_role.php">Assign user roles</a>|&nbsp;&nbsp;                            
         <span><a href="signout.php">Sign out</a></span>&nbsp;&nbsp;
-        <span style="margin-right:40px;">Login as:
+        <span style="margin-right:40px;">Welcome:
           <font style="color:orangeRed;">&nbsp;<?php echo $_SESSION['username'] ?></font>
         </span>   
       </div>                                                                    
@@ -269,22 +269,7 @@ A{
         </form>                                                                 
       </div>                                                                    
     </div>
-    <!-- td valign=top><a href=""><img src="images/menu1.gif" border=0 alt=""></a></td>
-
-    <td valign=top><a href=""><img src="images/menu2.gif" border=0 alt=""></a></td>
-
-    <td valign=top><a href=""><img src="images/menu3.gif" border=0 alt=""></a></td>
-
-    <td valign=top><a href=""><img src="images/menu4.gif" border=0 alt=""></a></td>
-
-    <td valign=top><a href=""><img src="images/menu5.gif" border=0 alt=""></a></td>
-
-    <td valign=top><a href=""><img src="images/menu6.gif" border=0 alt=""></a></td>
-
-    <td valign=top><img src="images/menu_end.gif" border=0 alt=""><div style="position:absolute;top:1px;left:1px;height:0px;width:0px;overflow:hidden"><h1><a href="http://www.webdesign.org">web design</a></h1><h1><a href="http://www.freetemplatesonline.com/">free web templates</a></h1><h1><a href="http://www.websitetemplates.org/">website templates</a></h1></div></td>
-
-    <td width="100%" class="bg1">&nbsp;</td -->
-
+    
   </tr> 
 
   <tr>

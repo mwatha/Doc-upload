@@ -6,7 +6,7 @@
 
 <?php 
 
-$dst_db = mysql_pconnect("localhost","root","letusout");                        
+$dst_db = mysql_pconnect("localhost","root","");                        
 mysql_select_db("dst", $dst_db);
 
 $title = $_POST['title'];

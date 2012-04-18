@@ -19,20 +19,21 @@ mysql_select_db("dst", $dst_db);
                                                                                 
 
 if($_SESSION['user_id'] == null) { ?>
-  <script>redirectLogin();</script><?php
+  <script>//redirectLogin();</script><?php
 }else{
   $user_id = $_SESSION['user_id'];                                                
 }
 
 $user_role = "SELECT role FROM user_role WHERE user_id = $user_id LIMIT 1";     
+
 $results = mysql_query($user_role,$dst_db);                                     
 $r = mysql_fetch_row($results);                                                 
 $n = mysql_num_rows($results);                                                  
-                                                                                
+
 if ($n > 0) {                                                                   
   if ($r[0] !="admin") { 
   }                                                                             
-}else{ ?>                                                                       
+}elseif ($_SESSION["username"] !="guest"){ ?>                                                                       
   <script>                                                                      
     document.write('Your not logged in!');                                      
     setTimeout("redirectLogin();", 4000);                                       
@@ -237,18 +238,28 @@ A{
   <tr>
     <div class="header">                                                        
       <div class="header-a">                                                    
-        <a href="index.php">Home</a>|&nbsp;&nbsp;                               
+         <a href="index.php">Home</a>|&nbsp;&nbsp;                               
+        <?php if($_SESSION["username"] != "guest") { ?>                         
         <a href="document.php">Add document</a>|&nbsp;&nbsp;                    
+        <?php } ?>                                                              
         <a href="scholarships.php">Scholarships</a>|&nbsp;&nbsp;                    
-        <a href="grants.php">Grant application</a>|&nbsp;&nbsp;                
-        <a href="policies.php">Policies</a>|&nbsp;&nbsp;
-        <a href="report.php">Report</a>|&nbsp;&nbsp;                               
+        <a href="grants.php">Grant application</a>|&nbsp;&nbsp;                 
+        <a href="policies.php">Policies</a>|&nbsp;&nbsp;                        
+        <a href="report.php">Advanced search</a>|&nbsp;&nbsp;                      
+        <?php if($_SESSION["username"] != "guest") { ?>                         
         <a href="my_account.php">My account</a>|&nbsp;&nbsp;                            
-        <a href="user_role.php">Assign user roles</a>|&nbsp;&nbsp;                            
-        <span><a href="signout.php">Sign out</a></span>&nbsp;&nbsp;
-        <span style="margin-right:40px;">Login as:
+        <a href="user_role.php">Assign user roles</a>|&nbsp;&nbsp;              
+        <?php } ?>                                                              
+    <a href="help.php">Help</a>|&nbsp;&nbsp;                                    
+        <?php if($_SESSION["username"] != "guest") { ?>                         
+          <span><a href="signout.php">Sign out</a></span>&nbsp;&nbsp;           
+        <?php                                                                   
+        }else{ ?>                                                               
+          <span><a href="register_user.php">Register</a></span>&nbsp;&nbsp;     
+        <?php } ?>                                                              
+        <span style="margin-right:40px;">Welcome:                               
           <font style="color:orangeRed;">&nbsp;<?php echo $_SESSION['username'] ?></font>
-        </span>   
+        </span>
       </div>                                                                    
       <div class="header-form">                                                 
         <form id="search_form" method="post" action="index.php">                
@@ -329,7 +340,11 @@ A{
           <tr>
             <td><?php echo $r[0]; ?></td>       
             <td style="text-align:center;"><?php echo $r[1]; ?></td>       
-            <td style="text-align:center;"><a href="<?php echo $r[2] ?>">Download</a></td>   
+            <?php if ($_SESSION["username"] !="guest") { ?>
+              <td style="text-align:center;"><a href="<?php echo $r[2] ?>">Download</a></td>   
+            <?php}else{?>
+              <td style="text-align:center;">&nbsp;</td>   
+            <?php } ?>
          </tr>    
        <?php                                                                   
           }                                                                          
@@ -354,12 +369,7 @@ A{
   <tr>
     <td class="bg6" ALIGN="CENTER" COLSPAN="2">
       <div>
-      <!--a href="">HOME</a>&nbsp;&nbsp;
-      <a href="">ABOUT US</a>&nbsp;&nbsp;
-      <a href="">SERVICES</a>&nbsp;&nbsp;
-      <a href="">SUPPORT</a>&nbsp;&nbsp;
-      <a href="">ABOUT SITE</a>&nbsp;&nbsp;
-      <a href="">CONTACT US</a-->
+      
       </div>
     </td>
     <td class="bg6" width="100%">&nbsp;</td>

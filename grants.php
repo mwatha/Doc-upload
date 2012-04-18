@@ -14,12 +14,12 @@ header('Content-type', 'application/x-force-download');
 <?php   
 
                                                                                 
-$dst_db = mysql_pconnect("localhost","root","letusout");                        
+$dst_db = mysql_pconnect("localhost","root","");                        
 mysql_select_db("dst", $dst_db);                                                
                                                                                 
 
 if($_SESSION['user_id'] == null) { ?>
-  <script>redirectLogin();</script><?php
+  <script>//redirectLogin();</script><?php
 }else{
   $user_id = $_SESSION['user_id'];                                                
 }
@@ -32,7 +32,7 @@ $n = mysql_num_rows($results);
 if ($n > 0) {                                                                   
   if ($r[0] !="admin") { 
   }                                                                             
-}else{ ?>                                                                       
+}elseif ($_SESSION["username"] !="guest"){ ?>                                                                       
   <script>                                                                      
     document.write('Your not logged in!');                                      
     setTimeout("redirectLogin();", 4000);                                       
@@ -43,9 +43,6 @@ if ($n > 0) {
 
 
 
-#$user_id_query = "SELECT user_id FROM user ORDER BY user_id DESC LIMIT 1";      
-#$results = mysql_query($user_id_query,$dst_db);                                 
-#$r = mysql_fetch_row($results);
 
 
 $search_string = $_POST['search_string'];
@@ -237,18 +234,31 @@ A{
   <tr>
     <div class="header">                                                        
       <div class="header-a">                                                    
-        <a href="index.php">Home</a>|&nbsp;&nbsp;                               
+         <a href="index.php">Home</a>|&nbsp;&nbsp;                               
+        <?php if($_SESSION["username"] != "guest") { ?>                         
         <a href="document.php">Add document</a>|&nbsp;&nbsp;                    
+        <?php } ?>                                                              
         <a href="scholarships.php">Scholarships</a>|&nbsp;&nbsp;                    
-        <a href="grants.php">Grant application</a>|&nbsp;&nbsp;                
-        <a href="policies.php">Policies</a>|&nbsp;&nbsp;
-        <a href="report.php">Report</a>|&nbsp;&nbsp;                               
+        <a href="grants.php">Grant application</a>|&nbsp;&nbsp;                 
+        <a href="policies.php">Policies</a>|&nbsp;&nbsp;                        
+        <?php if($_SESSION["username"] != "guest") { ?>                         
+        <a href="document.php">Add document</a>|&nbsp;&nbsp;                    
+        <?php } ?>                                                              
+        <a href="report.php">Advanced search</a>|&nbsp;&nbsp;                      
+        <?php if($_SESSION["username"] != "guest") { ?>                         
         <a href="my_account.php">My account</a>|&nbsp;&nbsp;                            
-        <a href="user_role.php">Assign user roles</a>|&nbsp;&nbsp;                            
-        <span><a href="signout.php">Sign out</a></span>&nbsp;&nbsp;
-        <span style="margin-right:40px;">Login as:
+        <a href="user_role.php">Assign user roles</a>|&nbsp;&nbsp;              
+        <?php } ?>                                                              
+    <a href="help.php">Help</a>|&nbsp;&nbsp;                                    
+        <?php if($_SESSION["username"] != "guest") { ?>                         
+          <span><a href="signout.php">Sign out</a></span>&nbsp;&nbsp;           
+        <?php                                                                   
+        }else{ ?>                                                               
+          <span><a href="register_user.php">Register</a></span>&nbsp;&nbsp;     
+        <?php } ?>                                                              
+        <span style="margin-right:40px;">Welcome:                               
           <font style="color:orangeRed;">&nbsp;<?php echo $_SESSION['username'] ?></font>
-        </span>   
+        </span>
       </div>                                                                    
       <div class="header-form">                                                 
         <form id="search_form" method="post" action="index.php">                
@@ -257,21 +267,7 @@ A{
         </form>                                                                 
       </div>                                                                    
     </div>
-    <!-- td valign=top><a href=""><img src="images/menu1.gif" border=0 alt=""></a></td>
-
-    <td valign=top><a href=""><img src="images/menu2.gif" border=0 alt=""></a></td>
-
-    <td valign=top><a href=""><img src="images/menu3.gif" border=0 alt=""></a></td>
-
-    <td valign=top><a href=""><img src="images/menu4.gif" border=0 alt=""></a></td>
-
-    <td valign=top><a href=""><img src="images/menu5.gif" border=0 alt=""></a></td>
-
-    <td valign=top><a href=""><img src="images/menu6.gif" border=0 alt=""></a></td>
-
-    <td valign=top><img src="images/menu_end.gif" border=0 alt=""><div style="position:absolute;top:1px;left:1px;height:0px;width:0px;overflow:hidden"><h1><a href="http://www.webdesign.org">web design</a></h1><h1><a href="http://www.freetemplatesonline.com/">free web templates</a></h1><h1><a href="http://www.websitetemplates.org/">website templates</a></h1></div></td>
-
-    <td width="100%" class="bg1">&nbsp;</td -->
+    
 
   </tr> 
 
@@ -293,13 +289,13 @@ A{
 
   <tr>
 
-    <td valign=top class="bg3"><!--img src="images/news.gif" border=0 alt=""-->
+    <td valign=top class="bg3">
 
       <div><b>Malawi Government</b><br><br>
         The Government of Malawi established the Department of Science and Technology in the Ministry of Education Science and Technology in 2009. The department is operating in a dynamic environment; politically, economically, socially, technologically, legally and environmentally. The department is expected to play a major role in facilitating innovative competitiveness and production of high quality products for accelerated economic growth through the formulation and review of science, technology and innovation policies and fostering international cooperation in science and technology.
       </div>
     </td>
-    <td valign="top" class="bg4" colspan="2"><!--img src="images/company_text.gif" border=0 alt=""><br-->
+    <td valign="top" class="bg4" colspan="2">
       <div>
         <h1>Uploaded grant files</h1><br />
         <table class='uploads'>
@@ -329,7 +325,11 @@ A{
           <tr>
             <td><?php echo $r[0]; ?></td>       
             <td style="text-align:center;"><?php echo $r[1]; ?></td>       
-            <td style="text-align:center;"><a href="<?php echo $r[2] ?>">Download</a></td>   
+             <?php if ($_SESSION["username"] !="guest") { ?>                     
+              <td style="text-align:center;"><a href="<?php echo $r[2] ?>">Download</a></td>
+            <?php}else{?>                                                       
+              <td style="text-align:center;">&nbsp;</td>                        
+            <?php } ?>
          </tr>    
        <?php                                                                   
           }                                                                          
@@ -354,12 +354,6 @@ A{
   <tr>
     <td class="bg6" ALIGN="CENTER" COLSPAN="2">
       <div>
-      <!--a href="">HOME</a>&nbsp;&nbsp;
-      <a href="">ABOUT US</a>&nbsp;&nbsp;
-      <a href="">SERVICES</a>&nbsp;&nbsp;
-      <a href="">SUPPORT</a>&nbsp;&nbsp;
-      <a href="">ABOUT SITE</a>&nbsp;&nbsp;
-      <a href="">CONTACT US</a-->
       </div>
     </td>
     <td class="bg6" width="100%">&nbsp;</td>

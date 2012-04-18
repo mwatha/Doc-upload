@@ -12,7 +12,7 @@
 <?php                                                                           
                                                                                 
                                                                                 
-$dst_db = mysql_pconnect("localhost","root","letusout");                        
+$dst_db = mysql_pconnect("localhost","root","");                        
 mysql_select_db("dst", $dst_db);                                                
                                                                                 
                                                                                 
@@ -231,7 +231,7 @@ A{
         <a href="my_account.php">My account</a>|&nbsp;&nbsp;                    
         <a href="user_role.php">Assign user roles</a>|&nbsp;&nbsp;              
         <span><a href="signout.php">Sign out</a></span>&nbsp;&nbsp;             
-        <span style="margin-right:40px;">Login as:                              
+        <span style="margin-right:40px;">Welcome:                              
           <font style="color:orangeRed;">&nbsp;<?php echo $_SESSION['username'] ?></font>
         </span>                                                                 
       </div>                                                                    
@@ -242,22 +242,7 @@ A{
         </form>                                                                 
       </div>                                                                    
     </div>
-    <!-- td valign=top><a href=""><img src="images/menu1.gif" border=0 alt=""></a></td>
-
-    <td valign=top><a href=""><img src="images/menu2.gif" border=0 alt=""></a></td>
-
-    <td valign=top><a href=""><img src="images/menu3.gif" border=0 alt=""></a></td>
-
-    <td valign=top><a href=""><img src="images/menu4.gif" border=0 alt=""></a></td>
-
-    <td valign=top><a href=""><img src="images/menu5.gif" border=0 alt=""></a></td>
-
-    <td valign=top><a href=""><img src="images/menu6.gif" border=0 alt=""></a></td>
-
-    <td valign=top><img src="images/menu_end.gif" border=0 alt=""><div style="position:absolute;top:1px;left:1px;height:0px;width:0px;overflow:hidden"><h1><a href="http://www.webdesign.org">web design</a></h1><h1><a href="http://www.freetemplatesonline.com/">free web templates</a></h1><h1><a href="http://www.websitetemplates.org/">website templates</a></h1></div></td>
-
-    <td width="100%" class="bg1">&nbsp;</td -->
-
+    
   </tr> 
 
   <tr>
@@ -278,13 +263,13 @@ A{
 
   <tr>
 
-    <td valign=top class="bg3"><!--img src="images/news.gif" border=0 alt=""-->
+    <td valign=top class="bg3">
 
       <div><b>Malawi Government</b><br><br>
         The Government of Malawi established the Department of Science and Technology in the Ministry of Education Science and Technology in 2009. The department is operating in a dynamic environment; politically, economically, socially, technologically, legally and environmentally. The department is expected to play a major role in facilitating innovative competitiveness and production of high quality products for accelerated economic growth through the formulation and review of science, technology and innovation policies and fostering international cooperation in science and technology.
       </div>
     </td>
-    <td valign="top" class="bg4" colspan="2"><!--img src="images/company_text.gif" border=0 alt=""><br-->
+    <td valign="top" class="bg4" colspan="2">
       <div>
 
       <form action="edit_user.php" method="post">
@@ -308,10 +293,7 @@ A{
         <td>Birthdate:</td>
         <td><input type="text" name="dob" id="dob" size="10" value="<?php echo $r[5]; ?>" /></td>
      </tr>
-     <!--tr>
-      <td>Profession:</td> 
-      <td><input type="text" name="job" id="job" /></td>
-     </tr-->
+     
       <tr>
         <td><label for="Email">Email address:</label></td>
         <td><input type="text" name="email" id="email" value="<?php echo $r[1]; ?>" /></td>
@@ -345,12 +327,7 @@ A{
   <tr>
     <td class="bg6" ALIGN="CENTER" COLSPAN="2">
       <div>
-      <!--a href="">HOME</a>&nbsp;&nbsp;
-      <a href="">ABOUT US</a>&nbsp;&nbsp;
-      <a href="">SERVICES</a>&nbsp;&nbsp;
-      <a href="">SUPPORT</a>&nbsp;&nbsp;
-      <a href="">ABOUT SITE</a>&nbsp;&nbsp;
-      <a href="">CONTACT US</a-->
+      
       </div>
     </td>
     <td class="bg6" width="100%">&nbsp;</td>

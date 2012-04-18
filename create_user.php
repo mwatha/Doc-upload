@@ -20,7 +20,6 @@ $fname = $_POST["fname"];
 $lname = $_POST["lname"];                                                       
 $dob = $_POST["dob"]; 
 $role = "Guest";                                                   
-#$job = $_POST["job"]
 $sex = "Female"; 
 $username = $_POST["username"];                                                   
 $email = $_POST["email"];                                                   
